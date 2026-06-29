@@ -32,7 +32,6 @@ export const Dashboard = () => {
   const folderInputRef = useRef(null);
   const [uploadType, setUploadType] = useState('file'); // 'file' or 'folder'
   const [selectedFolderFiles, setSelectedFolderFiles] = useState([]);
-  const [showFolderConfirmModal, setShowFolderConfirmModal] = useState(false);
   const [uploadProgress, setUploadProgress] = useState('');
 
   const [isEditingProfile, setIsEditingProfile] = useState(false);
@@ -315,7 +314,6 @@ export const Dashboard = () => {
     if (e.target.files && e.target.files.length > 0) {
       const filesArray = Array.from(e.target.files);
       setSelectedFolderFiles(filesArray);
-      setShowFolderConfirmModal(true);
     }
   };
 
@@ -384,7 +382,6 @@ export const Dashboard = () => {
           await readDirectory(dirHandle, dirHandle.name);
           if (files.length > 0) {
             setSelectedFolderFiles(files);
-            setShowFolderConfirmModal(true);
           }
         }
       } else {
