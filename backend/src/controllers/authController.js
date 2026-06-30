@@ -40,7 +40,7 @@ const signup = async (req, res) => {
   }
 
   try {
-    const existingUser = await dbGet('SELECT * FROM users WHERE username = ?', [username]);
+    const existingUser = await dbGet('SELECT * FROM users WHERE LOWER(username) = LOWER(?)', [username]);
     if (existingUser) {
       return res.status(400).json({ message: 'Username is already taken.' });
     }
@@ -73,7 +73,7 @@ const login = async (req, res) => {
   }
 
   try {
-    const user = await dbGet('SELECT * FROM users WHERE username = ?', [username]);
+    const user = await dbGet('SELECT * FROM users WHERE LOWER(username) = LOWER(?)', [username]);
     if (!user) {
       return res.status(400).json({ message: 'Invalid username or password.' });
     }
@@ -110,7 +110,7 @@ const forgotPassword = async (req, res) => {
   }
 
   try {
-    const user = await dbGet('SELECT * FROM users WHERE username = ?', [username]);
+    const user = await dbGet('SELECT * FROM users WHERE LOWER(username) = LOWER(?)', [username]);
     if (!user) {
       return res.status(404).json({ message: 'User not found.' });
     }
@@ -142,7 +142,7 @@ const getSecurityQuestion = async (req, res) => {
   }
 
   try {
-    const user = await dbGet('SELECT security_question FROM users WHERE username = ?', [username]);
+    const user = await dbGet('SELECT security_question FROM users WHERE LOWER(username) = LOWER(?)', [username]);
     if (!user) {
       return res.status(404).json({ message: 'User not found.' });
     }
@@ -162,7 +162,7 @@ const verifySecurityAnswer = async (req, res) => {
   }
 
   try {
-    const user = await dbGet('SELECT * FROM users WHERE username = ?', [username]);
+    const user = await dbGet('SELECT * FROM users WHERE LOWER(username) = LOWER(?)', [username]);
     if (!user) {
       return res.status(404).json({ message: 'User not found.' });
     }
@@ -203,7 +203,7 @@ const updateProfile = async (req, res) => {
       return res.status(404).json({ message: 'User not found.' });
     }
 
-    const existingUser = await dbGet('SELECT * FROM users WHERE username = ? AND id != ?', [username, userId]);
+    const existingUser = await dbGet('SELECT * FROM users WHERE LOWER(username) = LOWER(?) AND id != ?', [username, userId]);
     if (existingUser) {
       return res.status(400).json({ message: 'Username is already taken.' });
     }

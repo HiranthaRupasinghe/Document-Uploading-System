@@ -17,7 +17,7 @@ const shareResource = async (req, res) => {
 
   try {
     // Find target user
-    const targetUser = await dbGet('SELECT id FROM users WHERE username = ?', [sharedWithUsername.trim()]);
+    const targetUser = await dbGet('SELECT id FROM users WHERE LOWER(username) = LOWER(?)', [sharedWithUsername.trim()]);
     if (!targetUser) {
       return res.status(404).json({ message: 'User to share with not found.' });
     }

@@ -56,9 +56,9 @@ export const Login = ({ onNavigate }) => {
               <input
                 type="text"
                 id="username"
-                placeholder="lowercase username"
+                placeholder="Enter your username"
                 value={username}
-                onChange={(e) => setUsername(e.target.value.toLowerCase())}
+                onChange={(e) => setUsername(e.target.value)}
                 style={{ paddingLeft: '40px' }}
                 required
               />
